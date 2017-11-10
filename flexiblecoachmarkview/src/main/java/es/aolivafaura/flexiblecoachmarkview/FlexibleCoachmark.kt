@@ -11,10 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.RelativeLayout
+import android.content.ContextWrapper
+import android.app.Activity
+import android.os.Handler
 
-/**
- * Created by antoniojoseolivafaura on 10/11/2017.
- */
 
 class FlexibleCoachmark<T : View> : RelativeLayout {
 
@@ -27,13 +27,13 @@ class FlexibleCoachmark<T : View> : RelativeLayout {
 
     private val RELATED_VIEW_ID = R.id.view_id
 
-    var dismissListener: (() -> Unit)? = null
+    var dismissListener: OnCoackmarkDismissedListener? = null
+    var initialDelay = 200L
 
     /**
      * Notifies when coachmark view is dismissed
      */
     interface OnCoackmarkDismissedListener {
-
         fun onCoachmarkDismissed()
     }
 
@@ -49,7 +49,10 @@ class FlexibleCoachmark<T : View> : RelativeLayout {
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        drawStep(steps!![currentStep])
+
+        steps?.let {
+            drawStep(steps!![currentStep])
+        } ?: Log.e("FLEXIBLE COACH MARK", "Please set desired steps before invoke show method")
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -78,7 +81,6 @@ class FlexibleCoachmark<T : View> : RelativeLayout {
      * Advance to next step
      */
     fun nextStep() {
-
         if (!hasNextStep()) {
             close()
         } else {
@@ -90,15 +92,45 @@ class FlexibleCoachmark<T : View> : RelativeLayout {
      * Close view
      */
     fun close() {
+        fadeOut {
+            (parent as ViewGroup).removeView(this)
+            dismissListener?.onCoachmarkDismissed()
+        }
+    }
 
-        (parent as ViewGroup).removeView(this)
+    fun getCurrentStepView() {
+        steps?.let {
+            steps!![currentStep]
+        } ?: Log.e("FLEXIBLE COACH MARK", "There is no steps defined")
+    }
 
-        dismissListener?.invoke()
+    fun show() {
+        Handler().postDelayed({
+            val vg = getActivity()?.window?.decorView?.rootView as ViewGroup
+            val params = RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+
+            layoutParams = params
+            visibility = View.INVISIBLE
+            vg.addView(this@FlexibleCoachmark)
+            fadeIn()
+        }, initialDelay)
     }
 
     // ---------------------------------------------------------------------------------------------
     // PRIVATE METHODS
     // ---------------------------------------------------------------------------------------------
+
+    private fun getActivity(): Activity? {
+        var context = context
+        while (context is ContextWrapper) {
+            if (context is Activity) {
+                return context
+            }
+            context = context.baseContext
+        }
+        return null
+    }
 
     private fun drawStep(item: Coachmark<T>) {
 
@@ -166,7 +198,7 @@ class FlexibleCoachmark<T : View> : RelativeLayout {
 
     private fun drawSpot(coordinates: IntArray, radius: Int) {
 
-        val spotView = CustomSpotView(context)
+        val spotView = SpotView(context)
 
         val topCoordinate = coordinates[1] - radius
         val bottomCoordinate = coordinates[1] + radius
@@ -181,7 +213,7 @@ class FlexibleCoachmark<T : View> : RelativeLayout {
                 ConstraintLayout.LayoutParams.MATCH_PARENT)
         addView(spotView, params)
 
-        spotView.drawSpot(rect, radius)
+        spotView.drawSpot(rect, radius.toFloat())
     }
 
     private fun drawRelatedView(item: Coachmark<T>, anchorPoint: IntArray) {

@@ -1,11 +1,7 @@
 package es.aolivafaura.flexiblecoachmarkview
 
-/**
- * Created by antoniojoseolivafaura on 10/11/2017.
- */
-
-data class Coachmark<T> constructor(internal val spotDiameter: Int, internal val targetId: Int, internal val relatedSpotView: T,
-                                    internal val position: Int, internal val alignment: Int) {
+data class Coachmark<out T> constructor(internal val spotDiameter: Int, internal val targetId: Int, internal val relatedSpotView: T,
+                                        internal val position: Int, internal val alignment: Int) {
 
     // ---------------------------------------------------------------------------------------------
     // CONSTANTS
@@ -16,39 +12,39 @@ data class Coachmark<T> constructor(internal val spotDiameter: Int, internal val
         /**
          * Indicates that related view will have its top aligned with the spot position chosen
          */
-        val ALIGNMENT_TOP = 1
+        const val ALIGNMENT_TOP = 1
         /**
          * Indicates that related view will have its bottom aligned with the spot position chosen
          */
-        val ALIGNMENT_BOTTOM = 2
+        const val ALIGNMENT_BOTTOM = 2
         /**
          * Indicates that related view will have its left side aligned with the spot position chosen
          */
-        val ALIGNMENT_LEFT = 3
+        const val ALIGNMENT_LEFT = 3
         /**
          * Indicates that related view will have its right side aligned with the spot position chosen
          */
-        val ALIGNMENT_RIGHT = 4
+        const val ALIGNMENT_RIGHT = 4
         /**
          * Indicates that related view will have its center aligned with the spot position chosen
          */
-        val ALIGNMENT_CENTER = 5
+        const val ALIGNMENT_CENTER = 5
         /**
          * Indicates that related view will be aligned on the top of spot
          */
-        val POSITION_TOP = 6
+        const val POSITION_TOP = 6
         /**
          * Indicates that related view will be aligned on the bottom of spot
          */
-        val POSITION_BOTTOM = 7
+        const val POSITION_BOTTOM = 7
         /**
          * Indicates that related view will be aligned on the left side of spot
          */
-        val POSITION_LEFT = 8
+        const val POSITION_LEFT = 8
         /**
          * Indicates that related view will be aligned on the right side of spot
          */
-        val POSITION_RIGHT = 9
+        const val POSITION_RIGHT = 9
     }
 
     // ---------------------------------------------------------------------------------------------
