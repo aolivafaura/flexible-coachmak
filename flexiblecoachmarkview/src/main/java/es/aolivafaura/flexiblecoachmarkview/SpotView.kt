@@ -9,7 +9,7 @@ import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View
 
-private const val PIXELS_PER_FRAME = 4
+private const val PIXELS_PER_FRAME = 5
 
 class SpotView : AppCompatImageView {
 
@@ -40,8 +40,6 @@ class SpotView : AppCompatImageView {
 
     fun addSpot(spot: Spot) {
         spots.add(spot)
-
-        invalidate()
     }
 
     fun removeSpot(spot: Spot) {
@@ -52,14 +50,16 @@ class SpotView : AppCompatImageView {
         } else {
             spots.remove(localSpot)
         }
-
-        invalidate()
     }
 
     fun removeLastSpot() {
         if (spots.isNotEmpty()) {
             removeSpot(spots.last())
         }
+    }
+
+    fun startSequence() {
+        invalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -73,7 +73,13 @@ class SpotView : AppCompatImageView {
         paint.style = Paint.Style.FILL
         paint.xfermode = potterDuffClear
 
-        val shouldInvalidate = spots.any { refreshSpotIfNecessary(it, canvas) }
+        var shouldInvalidate = false
+
+        for (spot in spots) {
+            if (refreshSpotIfNecessary(spot, canvas)) {
+                shouldInvalidate = true
+            }
+        }
 
         if (shouldInvalidate) {
             handler.postDelayed({ invalidate() }, 1)

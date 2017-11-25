@@ -43,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 relatedButton.setText("Next coachmark");
 
                 Coachmark<Button> c1 = new Coachmark<>(100, R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
+                Coachmark<Button> c3 = new Coachmark<>(100, R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
                 Coachmark<Button> c2 = new Coachmark<>(100, R.id.button5, relatedButton, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
                 List<Coachmark<Button>> buttonList = new ArrayList<>();
                 buttonList.add(c1);
                 buttonList.add(c2);
+                buttonList.add(c3);
                 coachmark.setSteps(buttonList);
 
                 coachmark.setDismissListener(new FlexibleCoachmark.OnCoackmarkDismissedListener() {

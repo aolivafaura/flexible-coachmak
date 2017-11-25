@@ -218,8 +218,10 @@ class FlexibleCoachmark<T : View> : RelativeLayout {
 
         val spot = Spot(rect, radius.toFloat(), true)
         spot.direction = EXPAND
+
         spotView!!.removeLastSpot()
         spotView!!.addSpot(spot)
+        spotView!!.startSequence()
     }
 
     private fun drawRelatedView(item: Coachmark<T>, anchorPoint: IntArray) {
