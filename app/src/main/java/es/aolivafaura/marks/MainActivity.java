@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import es.aolivafaura.flexiblecoachmarkview.Coachmark;
 import es.aolivafaura.flexiblecoachmarkview.FlexibleCoachmark;
+import es.aolivafaura.flexiblecoachmarkview.GenerateView;
 
 /**
  * Created by antonio on 11/10/17.
@@ -46,6 +48,44 @@ public class MainActivity extends AppCompatActivity {
                 Coachmark<Button> c3 = new Coachmark<>(100, R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
                 Coachmark<Button> c2 = new Coachmark<>(100, R.id.button5, relatedButton, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
                 List<Coachmark<Button>> buttonList = new ArrayList<>();
+                buttonList.add(c1);
+                buttonList.add(c2);
+                buttonList.add(c3);
+                coachmark.setSteps(buttonList);
+
+                coachmark.setDismissListener(new FlexibleCoachmark.OnCoackmarkDismissedListener() {
+                    @Override
+                    public void onCoachmarkDismissed() {
+                        Log.d("TETE", "DISMISSED");
+                    }
+                });
+
+                coachmark.setInitialDelay(1000);
+                coachmark.show();
+            }
+        });
+
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final FlexibleCoachmark<ViewGroup> coachmark = new FlexibleCoachmark<>(MainActivity.this);
+
+                ViewGroup viewg = new GenerateView(MainActivity.this, R.layout.view_simple_layout)
+                        .withButton(R.id.button9, R.string.title_activity_main, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                coachmark.nextStep();
+                            }
+                        })
+                        .withText(R.id.textView, R.string.title_activity_main)
+                        .generate();
+
+
+                Coachmark<ViewGroup> c1 = new Coachmark<>(100, R.id.button, viewg, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
+                Coachmark<ViewGroup> c3 = new Coachmark<>(100, R.id.button, viewg, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
+                Coachmark<ViewGroup> c2 = new Coachmark<>(100, R.id.button5, viewg, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
+
+                List<Coachmark<ViewGroup>> buttonList = new ArrayList<>();
                 buttonList.add(c1);
                 buttonList.add(c2);
                 buttonList.add(c3);
