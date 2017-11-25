@@ -27,35 +27,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        final FlexibleCoachmark<Button> coachmark = new FlexibleCoachmark<>(this);
-
-        Button relatedButton = new Button(this);
-        relatedButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                coachmark.nextStep();
+                final FlexibleCoachmark<Button> coachmark = new FlexibleCoachmark<>(MainActivity.this);
+
+                Button relatedButton = new Button(MainActivity.this);
+                relatedButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        coachmark.nextStep();
+                    }
+                });
+                relatedButton.setText("Next coachmark");
+
+                Coachmark<Button> c1 = new Coachmark<>(100, R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
+                Coachmark<Button> c2 = new Coachmark<>(100, R.id.button5, relatedButton, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
+                List<Coachmark<Button>> buttonList = new ArrayList<>();
+                buttonList.add(c1);
+                buttonList.add(c2);
+                coachmark.setSteps(buttonList);
+
+                coachmark.setDismissListener(new FlexibleCoachmark.OnCoackmarkDismissedListener() {
+                    @Override
+                    public void onCoachmarkDismissed() {
+                        Log.d("TETE", "DISMISSED");
+                    }
+                });
+
+                coachmark.setInitialDelay(1000);
+                coachmark.show();
             }
         });
-        relatedButton.setText("Next coachmark");
-
-        Coachmark<Button> c1 = new Coachmark<>(100, R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
-        List<Coachmark<Button>> buttonList = new ArrayList<>();
-        buttonList.add(c1);
-        coachmark.setSteps(buttonList);
-
-        coachmark.setDismissListener(new FlexibleCoachmark.OnCoackmarkDismissedListener() {
-            @Override
-            public void onCoachmarkDismissed() {
-                Log.d("TETE", "DISMISSED");
-            }
-        });
-
-        coachmark.setInitialDelay(1000);
-        coachmark.show();
     }
 }
