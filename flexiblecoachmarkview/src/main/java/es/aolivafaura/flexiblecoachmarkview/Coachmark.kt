@@ -1,7 +1,9 @@
 package es.aolivafaura.flexiblecoachmarkview
 
-data class Coachmark<out T> constructor(internal val spotDiameter: Int, internal val targetId: Int, internal val relatedSpotView: T,
-                                        internal val position: Int, internal val alignment: Int) {
+import android.support.annotation.IdRes
+import android.view.View
+
+class Coachmark<T : View> {
 
     // ---------------------------------------------------------------------------------------------
     // CONSTANTS
@@ -51,8 +53,46 @@ data class Coachmark<out T> constructor(internal val spotDiameter: Int, internal
     // VARIABLES
     // ---------------------------------------------------------------------------------------------
 
-    internal var maxWdith = 200
-    internal val paddings = intArrayOf(0, 0, 0, 0)
+    var spotDiameterDp = -1
+    var spotDiameterPercetage: Double = -1.0
+    @IdRes
+    var targetId: Int = 0
+    var target: View? = null
+    var position: Int = 0
+    var alignment: Int = 0
+    var relatedSpotView: T? = null
+    internal var maxWidth = -1
+    val paddings = intArrayOf(0, 0, 0, 0)
+
+    /**
+     * @param targetId        Desired view id to be spotted
+     * @param relatedSpotView View to be shown with the coachmark
+     * @param position        Position of the view respect to the mark
+     * @param alignment       Alignment of the view respect to the position
+     */
+    constructor(@IdRes targetId: Int, relatedSpotView: T, position: Int,
+                alignment: Int) {
+
+        this.targetId = targetId
+        this.position = position
+        this.alignment = alignment
+        this.relatedSpotView = relatedSpotView
+    }
+
+    /**
+     * @param target          Desired view to be spotted
+     * @param relatedSpotView View to be shown with the coachmark
+     * @param position        Position of the view respect to the mark
+     * @param alignment       Alignment of the view respect to the position
+     */
+    constructor(target: View, relatedSpotView: T, position: Int,
+                alignment: Int) {
+
+        this.target = target
+        this.position = position
+        this.alignment = alignment
+        this.relatedSpotView = relatedSpotView
+    }
 
     /**
      * Defined paddings will be applied on related spot view

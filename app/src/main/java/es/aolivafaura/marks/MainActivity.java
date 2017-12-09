@@ -1,11 +1,9 @@
 package es.aolivafaura.marks;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final FlexibleCoachmark<Button> coachmark = new FlexibleCoachmark<>(MainActivity.this);
+                final FlexibleCoachmark coachmark = new FlexibleCoachmark(MainActivity.this);
 
                 Button relatedButton = new Button(MainActivity.this);
                 relatedButton.setOnClickListener(new View.OnClickListener() {
@@ -44,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 });
                 relatedButton.setText("Next coachmark");
 
-                Coachmark<Button> c1 = new Coachmark<>(100, R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
-                Coachmark<Button> c3 = new Coachmark<>(100, R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
-                Coachmark<Button> c2 = new Coachmark<>(100, R.id.button5, relatedButton, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
+                Coachmark<Button> c1 = new Coachmark<>(R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
+                c1.setSpotDiameterDp(100);
+                Coachmark<Button> c2 = new Coachmark<>(R.id.button2, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_LEFT);
+                c2.setSpotDiameterPercetage(200);
+                Coachmark<Button> c3 = new Coachmark<>(R.id.button5, relatedButton, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
+                c3.setSpotDiameterPercetage(50);
                 List<Coachmark<Button>> buttonList = new ArrayList<>();
                 buttonList.add(c1);
                 buttonList.add(c2);
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final FlexibleCoachmark<ViewGroup> coachmark = new FlexibleCoachmark<>(MainActivity.this);
+                final FlexibleCoachmark coachmark = new FlexibleCoachmark(MainActivity.this);
 
                 ViewGroup viewg = new GenerateView(MainActivity.this, R.layout.view_simple_layout)
                         .withButton(R.id.button9, R.string.title_activity_main, new View.OnClickListener() {
@@ -81,9 +82,12 @@ public class MainActivity extends AppCompatActivity {
                         .generate();
 
 
-                Coachmark<ViewGroup> c1 = new Coachmark<>(100, R.id.button, viewg, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
-                Coachmark<ViewGroup> c3 = new Coachmark<>(100, R.id.button, viewg, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
-                Coachmark<ViewGroup> c2 = new Coachmark<>(100, R.id.button5, viewg, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
+                Coachmark<ViewGroup> c1 = new Coachmark<>(R.id.button, viewg, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
+                c1.setSpotDiameterDp(100);
+                Coachmark<ViewGroup> c2 = new Coachmark<>(R.id.button, viewg, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
+                c2.setSpotDiameterPercetage(200);
+                Coachmark<ViewGroup> c3 = new Coachmark<>(R.id.button5, viewg, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
+                c3.setSpotDiameterPercetage(50);
 
                 List<Coachmark<ViewGroup>> buttonList = new ArrayList<>();
                 buttonList.add(c1);
