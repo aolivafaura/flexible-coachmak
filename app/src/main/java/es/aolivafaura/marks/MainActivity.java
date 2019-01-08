@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
                 Coachmark<Button> c1 = new Coachmark<>(R.id.button, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
                 c1.setSpotDiameterDp(100);
                 Coachmark<Button> c2 = new Coachmark<>(R.id.button2, relatedButton, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_LEFT);
-                c2.setSpotDiameterPercetage(200);
+                c2.setSpotDiameterPercentage(200);
                 Coachmark<Button> c3 = new Coachmark<>(R.id.button5, relatedButton, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
-                c3.setSpotDiameterPercetage(50);
+                c3.setSpotDiameterPercentage(50);
                 List<Coachmark<Button>> buttonList = new ArrayList<>();
                 buttonList.add(c1);
                 buttonList.add(c2);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 coachmark.setDismissListener(new FlexibleCoachmark.OnCoackmarkDismissedListener() {
                     @Override
                     public void onCoachmarkDismissed() {
-                        Log.d("TETE", "DISMISSED");
+                        Log.d("FlexibleCoachmarkDemo", "Coachmark dismissed");
                     }
                 });
 
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 Coachmark<ViewGroup> c1 = new Coachmark<>(R.id.button, viewg, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
                 c1.setSpotDiameterDp(100);
                 Coachmark<ViewGroup> c2 = new Coachmark<>(R.id.button, viewg, Coachmark.POSITION_BOTTOM, Coachmark.ALIGNMENT_RIGHT);
-                c2.setSpotDiameterPercetage(200);
+                c2.setSpotDiameterPercentage(200);
                 Coachmark<ViewGroup> c3 = new Coachmark<>(R.id.button5, viewg, Coachmark.POSITION_RIGHT, Coachmark.ALIGNMENT_TOP);
-                c3.setSpotDiameterPercetage(50);
+                c3.setSpotDiameterPercentage(50);
 
                 List<Coachmark<ViewGroup>> buttonList = new ArrayList<>();
                 buttonList.add(c1);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 coachmark.setDismissListener(new FlexibleCoachmark.OnCoackmarkDismissedListener() {
                     @Override
                     public void onCoachmarkDismissed() {
-                        Log.d("TETE", "DISMISSED");
+                        Log.d("FlexibleCoachmarkDemo", "Coachmark dismissed");
                     }
                 });
 

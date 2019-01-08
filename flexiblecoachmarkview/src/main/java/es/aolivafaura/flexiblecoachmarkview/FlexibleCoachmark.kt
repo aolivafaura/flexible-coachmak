@@ -14,7 +14,7 @@ import android.widget.RelativeLayout
 import android.content.ContextWrapper
 import android.app.Activity
 import android.os.Handler
-
+import es.aolivafaura.flexiblecoachmarkview.Spot.Companion.EXPAND
 
 class FlexibleCoachmark : RelativeLayout {
 
@@ -140,8 +140,8 @@ class FlexibleCoachmark : RelativeLayout {
         val spotDiameter =
                 when {
                     item.spotDiameterDp > 0 -> item.spotDiameterDp
-                    item.spotDiameterPercetage > 0 -> {
-                        pixelsToDp(context, (focusView.width * (item.spotDiameterPercetage / 100)).toInt()).toInt()
+                    item.spotDiameterPercentage > 0 -> {
+                        pixelsToDp(context, (focusView.width * (item.spotDiameterPercentage / 100)).toInt()).toInt()
                     }
                     else -> 0
                 }

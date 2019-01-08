@@ -8,10 +8,12 @@ import android.support.annotation.Nullable
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View
+import es.aolivafaura.flexiblecoachmarkview.Spot.Companion.COLLAPSE
+import es.aolivafaura.flexiblecoachmarkview.Spot.Companion.EXPAND
 
 private const val PIXELS_PER_FRAME = 5
 
-class SpotView : AppCompatImageView {
+internal class SpotView : AppCompatImageView {
 
     private val paint = Paint(ANTI_ALIAS_FLAG)
     private val potterDuffClear = PorterDuffXfermode(PorterDuff.Mode.CLEAR)

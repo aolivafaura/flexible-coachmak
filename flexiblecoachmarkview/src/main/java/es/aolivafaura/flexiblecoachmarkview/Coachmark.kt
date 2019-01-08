@@ -54,7 +54,7 @@ class Coachmark<T : View> {
     // ---------------------------------------------------------------------------------------------
 
     var spotDiameterDp = -1
-    var spotDiameterPercetage: Double = -1.0
+    var spotDiameterPercentage: Double = -1.0
     @IdRes
     var targetId: Int = 0
     var target: View? = null
